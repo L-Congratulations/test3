@@ -1,0 +1,32 @@
+{
+    "apps":[
+        {
+            "name":"test",
+            "script":"./server/server.js",
+            "env": {
+                "COMMON_VARIABLE": "true"
+            },
+            "env_production":{
+                "NODE_ENV":"production",
+                "HOST":"localhost",
+                "PORT":9000
+            }
+        }
+    ],
+    "deploy":{
+        "production":{
+            "user":"root",
+            "host":"106.13.3.220",
+            "ref":"origin/master",
+            "repo":"https://github.com/L-Congratulations/test2.git",
+            "path":"/root/dawn/test",
+            "ssh_options": "StrictHostKeyChecking=no",
+            "pre-deploy":"git fetch --all",
+            "post-deploy":"npm install && pm2 startOrRestart ecosystem.json --env production",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        }
+    }
+
+}
